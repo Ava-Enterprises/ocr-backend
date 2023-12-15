@@ -1,0 +1,29 @@
+name: merge protection
+
+on:
+  push:
+    branches:
+      - QA
+  pull_request:
+    branches:
+      - QA
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Dev/QA diff
+        run: |
+          diff_output=$(diff --unified=3 qa/terraform.tf dev/terraform.tf)
+          if [ -n "$diff_output" ]; then
+            echo "$diff_output"
+            exit 1
+          fi
+        
+
+
+
+
+
