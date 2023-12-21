@@ -23,9 +23,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: | 
-          terraform workspace new ${{env.BRANCH_NAME}}
-          terraform workspace select ${{env.BRANCH_NAME}}
+        run: terraform workspace select -or-create ${{env.BRANCH_NAME}}
       
       - name: Terraform fmt
         env:
