@@ -1,0 +1,35 @@
+name: dev resource teardown workflow
+
+on:
+  workflow_dispatch:
+
+env:
+ BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform init -input=false
+
+      - name: switch workspace
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform workspace select -or-create ${{env.BRANCH_NAME}}
+      
+      - name: Terraform destroy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform destroy
+
+  
+
