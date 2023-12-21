@@ -4,7 +4,7 @@ terraform {
     bucket         = "ocr-backend-dev-states"
     key            = "terraform.tfstate"
     region         = "us-east-2"
-    dynamodb_table = "state-bucket-yolo"
+    dynamodb_table = "state-lock"
     encrypt        = true
   }
 }
