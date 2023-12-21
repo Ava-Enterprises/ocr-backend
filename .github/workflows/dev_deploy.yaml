@@ -35,19 +35,19 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform validate -var-file="dev_variables.tfvars"
+        run: terraform validate -var-file=dev_variables.tfvars
       
       - name: Terraform plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform plan -var-file="dev_variables.tfvars" -var='env_name=${{env.BRANCH_NAME}}'
+        run: terraform plan -var-file=dev_variables.tfvars -var='env_name=${{env.BRANCH_NAME}}'
 
       - name: Terraform apply
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform apply -var-file="dev_variables.tfvars" -var='env_name=${{env.BRANCH_NAME}}' -auto-approve -input=false
+        run: terraform apply -var-file=dev_variables.tfvars -var='env_name=${{env.BRANCH_NAME}}' -auto-approve -input=false
 
   
 
