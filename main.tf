@@ -1,5 +1,5 @@
 resource "aws_instance" "example_server" {
-  ami           = "ami-04e914639d0cca79a"
+  ami           = "ami-0ee4f2271a4df2d7d"
   instance_type = "t2.micro"
   tags = {
     Name = "${var.env_name}"
